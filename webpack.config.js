@@ -5,6 +5,7 @@ const loaders = require('./webpack/loaders');
 const devServer = require('./webpack/devServer');
 
 module.exports = (env, argv) => {
+  const isDocs = env.docs === 'true';
   const isProd = argv.mode === 'production';
 
   const config = {
@@ -12,8 +13,7 @@ module.exports = (env, argv) => {
     devtool: isProd ? 'source-map' : 'inline-source-map',
 
     output: {
-      // build for GitHub Page in `docs` folder
-      path: path.join(__dirname, 'docs'),
+      path: path.join(__dirname, 'dist'),
       publicPath: '/',
       // output filename of scripts
       filename: 'assets/js/[name].[contenthash:8].js',
@@ -140,6 +140,11 @@ module.exports = (env, argv) => {
       //aggregateTimeout: 1000,
       ignored: ['**/node_modules'],
     };
+  }
+
+  if (isDocs) {
+    config.output.path = path.join(__dirname, 'docs');
+    config.output.publicPath = '/webpack-starter-pug-scss-js/';
   }
 
   return config;

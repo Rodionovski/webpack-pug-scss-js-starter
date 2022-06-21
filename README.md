@@ -8,17 +8,17 @@ Install:
 npm i
 ```
 
-Start app in browser in dev mode:
+Start local dev server (development mode):
 ```
 npm run start
 ```
 
-Build distribution files:
+Build distribution files (production mode):
 ```
 npm run build
 ```
 
-Preview distribution files in browser:
+Preview the build in browser (production mode):
 ```
 npm run preview
 ```
