@@ -1,0 +1,22 @@
+// Base
+@use 'base/normalize';
+@use 'base/space';
+@use 'base/layout';
+
+// App font: choose your font
+//@use 'base/fonts/arial' as font;
+//@use 'base/fonts/helvetica' as font;
+@use 'base/fonts/roboto' as font;
+@use 'base/typography' with (
+  $font-family: font.$font-family,
+);
+
+// Icons
+@use 'base/mat-icons';
+
+// UI components
+// note: load components only on page where is used
+//@use 'Views/components/tabs/tabs';
+
+// Node modules
+@use 'modules/highlight';

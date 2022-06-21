@@ -1,0 +1,80 @@
+extends Views/layouts/default
+
+mixin icon-list(icons, iconClass)
+  each code, name in icons
+    .icon-item
+      span.icon(class=iconClass)= name
+      span.caption= name
+
+block variables
+  - title = 'Home'
+
+append style
+  link(rel='stylesheet' href=require('./styles.scss'))
+
+append script
+  script(src=require('./main.js'))
+
+block content
+  include Views/mixins/code
+  include Views/components/tabs/mixins
+
+  section
+    .container
+      h1.center-x Icons
+
+      p Install Material Icons and/or Symbols modules.
+      +code: :highlight
+        npm install --save-dev material-icons material-symbols
+
+      p.
+        Load Material Icons and/or Symbols in your SCSS file.
+        You can define an alias for very long default class name, e.g. #[code .mat-icon] for #[code .material-icons-outlined].
+
+      +code: :highlight(scss)
+        @use 'material-icons';
+        @use 'material-symbols';
+
+        .mat-icon {
+          @extend .material-icons-outlined;
+        }
+        .mat-symbol {
+          @extend .material-symbols-outlined;
+        }
+
+      p.
+        Use an icon name in a tag with class #[code .mat-symbol] or #[code .mat-icon].
+        See the complete list of all icon names #[a(href='https://fonts.google.com/icons?selected=Material+Icons&icon.set=Material+Icons').link here].
+
+      h2 Example of Material Symbols
+
+      +tab.tab-flat
+        +tab-head(checked=true)
+          .mat-symbol play_arrow
+          | Preview
+        +tab-head Pug
+        +tab-head JSON
+        +tab-head SCSS
+        +tab-body
+          +tab-content
+            .mt-lg
+              - const matIcons = require('./mat-icons.json').symbols
+              each name in matIcons
+                .icon-item
+                  .mat-symbol= name
+                  .caption= name
+          +tab-content
+            +code: :highlight(pug)
+              //- load icons list
+              - const matIcons = require('./mat-icons.json').symbols
+              each name in matIcons
+                .mat-symbol= name
+          +tab-content
+            +code: include:highlight(json) ./mat-icons.json
+          +tab-content
+            +code: :highlight(scss)
+              @use 'material-symbols';
+
+              .mat-symbol {
+                @extend .material-symbols-outlined;
+              }

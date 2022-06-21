@@ -1,0 +1,13 @@
+extends ../../layouts/layout.default
+
+block variables
+  - const title = 'Contact'
+
+apend style
+  link(rel='stylesheet' href=require('./styles.scss'))
+
+apend script
+  script(src=require('./main.js'))
+
+block content
+  h1 Contact page

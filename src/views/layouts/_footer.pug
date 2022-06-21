@@ -1,0 +1,10 @@
+-
+  let date = new Date;
+  date = new Date(date.getTime() - (date.getTimezoneOffset() * 60 * 1000));
+  const fullYear = date.getFullYear();
+  const [strDate, strTime] = date.toISOString().replace('T', ' ').split('.')[0].split(' ');
+
+.footer-container
+  .footer-content.
+    Copyleft #[span.copyleft] #{fullYear} #[a(href="https://github.com/webdiscus") @webdiscus].
+    Powered by #[a(href="https://github.com/webdiscus/pug-plugin") Pug Plugin]. #[span Last updated] #{strDate}.

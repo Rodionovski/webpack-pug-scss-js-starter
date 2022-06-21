@@ -1,0 +1,90 @@
+// Tabs
+// Note: Tab heads and body must be at same indent.
+
+$max-tabs: 20 !default;
+
+// Default theme
+$tab-label-text-color: #7e7e7e;
+$tab-label-text-color-active: #000;
+$tab-label-bg-color: #eee;
+$tab-label-bg-color-active: #fff;
+$tab-label-border-color-active: transparent;
+$tab-head-border-color: #dcdcdc; //#999
+
+.ui-tab {
+  .ui-tab-label {
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    top: 1px;
+    padding: 6px 12px;
+
+    border-radius: 4px 4px 0 0;
+    border: 1px solid $tab-head-border-color;
+    color: $tab-label-text-color;
+    background: $tab-label-bg-color;
+    white-space: nowrap;
+    vertical-align: bottom;
+  }
+
+  .ui-tab-control {
+    // hide radio button in tabs head
+    display: none;
+
+    // tab label active
+    &:checked + label {
+      color: $tab-label-text-color-active;
+      background: $tab-label-bg-color-active;
+      border-bottom: 1px solid $tab-label-border-color-active;
+      z-index: 1;
+    }
+  }
+
+  .ui-tab-body {
+  }
+
+  .ui-tab-content {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+    border-top: 1px solid $tab-head-border-color;
+    overflow: auto;
+  }
+}
+
+@for $i from 1 through $max-tabs {
+  .ui-tab-control:nth-of-type(#{$i}):checked ~ .ui-tab-body .ui-tab-content:nth-of-type(#{$i}) {
+    display: flex;
+  }
+}
+
+// Flat theme
+.ui-tab.tab-flat {
+  $tab-label-text-color: #7e7e7e;
+  $tab-label-text-color-active: #000;
+  $tab-label-bg-color: #fff;
+  $tab-label-bg-color-active: #fff;
+  $tab-label-border-color-active: #3178a6;
+  $tab-head-border-color: #dcdcdc;
+
+  .ui-tab-label {
+    top: 0;
+    border: none;
+    border-radius: 0;
+    color: $tab-label-text-color;
+    background: $tab-label-bg-color;
+    border-bottom: 2px solid transparent;
+  }
+
+  // tab label active
+  .ui-tab-control:checked + label {
+    color: $tab-label-text-color-active;
+    background: $tab-label-bg-color-active;
+    border-bottom: 2px solid $tab-label-border-color-active;
+  }
+
+  .ui-tab-content {
+    border-top: 1px solid $tab-head-border-color;
+  }
+}

@@ -1,0 +1,93 @@
+extends Views/layouts/default
+
+block content
+  include Views/mixins/block
+  include Views/mixins/mixin
+  include Views/mixins/code
+
+  section
+    .container
+
+      h1.center-x Recipes
+
+      h2 Usage multiple blocks
+
+
+      p.
+        Multiple blocks are in Pug not allowed, see the #[a(href="https://github.com/pugjs/pug/issues/1693").link issue].
+        But, using the #[code.inline mixin block] we can simulate multiple blocks.
+
+      +code('pug'): include:highlight(pug) Views/mixins/block
+
+      p.
+        In your mixin you can use many block mixins by a block name, for example:
+      +code('pug'): :highlight(pug)
+        mixin article
+          i Article demo
+          ul.article
+            li
+              +block('article1')
+            li
+              +block('article2')
+
+      p.
+        Define named blocks before using of your mixin:
+      +code('pug'): :highlight(pug)
+        +block('article1')
+          p Content of article 1
+
+        +block('article2')
+          p Content of article 2
+
+        +article()
+
+      h3 Output
+
+      mixin article-demo
+        i Article demo
+        ul.article
+          li
+            +block('article1')
+          li
+            +block('article2')
+
+      +block('article1')
+        p Content of article 1
+
+      +block('article2')
+        p Content of article 2
+
+      +article-demo()
+
+      h2 Usage dynamic mixins
+
+      p.
+        Create the dynamic mixin to simplify usage syntax:
+      +code('pug'): include:highlight(pug) Views/mixins/mixin
+
+      p Now you can call a mixin by name:
+      +code('pug'): :highlight(pug)
+        mixin a
+          p Mixin A
+
+        mixin b
+          p Mixin B
+
+        -
+          let someCondition = -1;
+          let myMixin = someCondition > 0 ? 'a' : 'b'
+
+        +mixin(myMixin)
+
+      h3 Output
+      mixin a
+        p Mixin A
+
+      mixin b
+        p Mixin B
+
+      -
+        const someCondition = -1;
+        const myMixin = someCondition > 0 ? 'a' : 'b'
+
+      +mixin(myMixin)

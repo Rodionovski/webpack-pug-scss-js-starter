@@ -1,0 +1,10 @@
+.DS_Store
+.idea
+_ignore
+package-lock.json
+coverage
+coverage.lcov
+node_modules
+public
+dist
+test/output/

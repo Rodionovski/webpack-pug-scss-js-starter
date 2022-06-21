@@ -1,0 +1,70 @@
+{
+  "name": "webpack-starter-pug-scss-js",
+  "version": "1.0.0",
+  "description": "Webpack starter project with Pug, SCSS and VanillaJS.",
+  "keywords": [
+    "webpack",
+    "entry",
+    "pug",
+    "html",
+    "css",
+    "sass",
+    "scss",
+    "js",
+    "style",
+    "pug-plugin",
+    "pug-loader"
+  ],
+  "license": "ISC",
+  "author": "webdiscus (https://github.com/webdiscus)",
+  "maintainers": [
+    "webdiscus (https://github.com/webdiscus)"
+  ],
+  "funding": {
+    "type": "patreon",
+    "url": "https://patreon.com/biodiscus"
+  },
+  "homepage": "https://github.com/webdiscus/webpack-starter-pug-scss-js",
+  "bugs": {
+    "url": "https://github.com/webdiscus/webpack-starter-pug-scss-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webdiscus/webpack-starter-pug-scss-js.git"
+  },
+  "scripts": {
+    "start": "rimraf dist && webpack serve --mode=development",
+    "watch": "rimraf dist && webpack watch --mode=development",
+    "build": "rimraf docs && webpack --mode=production --progress",
+    "preview": "npm run build && http-server docs --port 4321 -o",
+    "test": "echo 'No test specified' && exit 1"
+  },
+  "engines": {
+    "node": ">=16.13.0"
+  },
+  "peerDependencies": {
+    "webpack": ">=5.32.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "css-loader": "^6.7.1",
+    "dotenv": "^16.0.1",
+    "http-server": "^14.1.1",
+    "markdown-it": "^13.0.1",
+    "material-icons": "^1.11.2",
+    "material-symbols": "^0.2.1",
+    "prettier": "^2.7.1",
+    "prismjs": "^1.28.0",
+    "pug-plugin": "^2.7.6",
+    "responsive-loader": "^3.0.4",
+    "rimraf": "^3.0.2",
+    "sass": "1.52.3",
+    "sass-loader": "^13.0.0",
+    "sharp": "^0.30.6",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.2",
+    "webpack-merge": "^5.8.0"
+  }
+}

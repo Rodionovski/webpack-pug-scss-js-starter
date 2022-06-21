@@ -1,0 +1,10 @@
+extends Views/layouts/default
+
+append style
+  link(rel='stylesheet' href=require('./styles.scss'))
+
+block content
+  section
+    h1.center-x Markdown
+    .markdown-body
+      include:markdown ./README.md

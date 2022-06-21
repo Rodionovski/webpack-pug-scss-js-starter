@@ -1,0 +1,142 @@
+/**
+ * prism.js github theme
+ * @author https://github.com/webdiscus
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: var(--color-fg-default);
+  background: none;
+  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+  font-size: 85%;
+  line-height: 1.45;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: 16px;
+  overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background-color: var(--color-canvas-subtle);
+  border-radius: 6px;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  border-radius: 6px;
+  white-space: normal;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--color-prettylights-syntax-comment)
+}
+
+.token.punctuation {
+  color: var(--color-fg-default);
+}
+
+.token.tag {
+  color: var(--color-prettylights-syntax-entity-tag)
+}
+
+.token.function-name,
+.token.function {
+  color: var(--color-prettylights-syntax-entity)
+}
+
+.token.operator,
+.token.boolean,
+.token.constant,
+.token.number,
+.token.symbol,
+.token.property,
+.token.attr-name {
+  color: var(--color-prettylights-syntax-constant)
+}
+
+.token.namespace,
+.token.class-name {
+  color: var(--color-prettylights-syntax-variable)
+}
+
+.token.keyword {
+  color: var(--color-prettylights-syntax-keyword)
+}
+
+.token.selector,
+.token.builtin {
+  color: var(--color-prettylights-syntax-constant)
+}
+
+.token.atrule,
+.token.important {
+  color: var(--color-prettylights-syntax-keyword)
+}
+
+.token.string,
+.token.char,
+.token.regex,
+.token.attr-value {
+  color: var(--color-prettylights-syntax-string)
+}
+
+.token.filter .filter-name {
+  color: var(--color-prettylights-syntax-keyword)
+}
+
+.token.variable {
+  color: var(--color-prettylights-syntax-variable)
+}
+
+.token.entity {
+  color: var(--color-prettylights-syntax-storage-modifier-import)
+}
+
+.token.url {
+  text-decoration: underline;
+  color: var(--color-prettylights-syntax-constant-other-reference-link)
+}
+
+.token.deleted {
+  color: var(--color-prettylights-syntax-markup-deleted-text);
+  background-color: var(--color-prettylights-syntax-markup-deleted-bg)
+}
+
+.token.inserted {
+  color: var(--color-prettylights-syntax-markup-inserted-text);
+  background-color: var(--color-prettylights-syntax-markup-inserted-bg)
+}
+
+.token.bold {
+  font-weight: bold;
+  color: var(--color-prettylights-syntax-markup-bold)
+}
+.token.italic {
+  font-style: italic;
+  color: var(--color-prettylights-syntax-markup-italic)
+}

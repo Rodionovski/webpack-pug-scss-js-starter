@@ -1,0 +1,8 @@
+//- important to use `var`, not `let` or `const`
+- var blocks = blocks || {}
+
+mixin block(name)
+  -
+    if (this.block && !this.block.length)
+      blocks[name] = this.block
+    else if (!!blocks[name]) blocks[name]()

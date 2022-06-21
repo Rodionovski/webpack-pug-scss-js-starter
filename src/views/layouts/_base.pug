@@ -1,0 +1,57 @@
+block variables
+  //- Default variables
+  - title = title || '';
+  - colorScheme = colorScheme || 'light';
+  - meta = meta || [];
+
+//- Custom meta data
+- const metaData = require('./data/meta.js')
+- const customMeta = metaData.concat(meta)
+
+doctype html
+html(lang='en' dir='ltr')
+  head
+    //- Meta
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1')
+
+    //- Color scheme, see https://html.spec.whatwg.org/multipage/semantics.html#meta-theme-color
+    meta(name='color-scheme' content=colorScheme)
+    meta(name='theme-color' content='#ffffff' media='(prefers-color-scheme: light) or (prefers-color-scheme: no-preference)')
+    meta(name='theme-color' content='#000000' media='(prefers-color-scheme: dark)')
+
+    //- Additional meta data
+    each attrs in customMeta
+      meta&attributes(attrs)
+
+    //- Favicons, fallback order: svg > png > ico
+    link(rel='icon' href=require('Images/favicons/favicon.svg') type='image/svg+xml' sizes='any')
+    link(rel='icon' href=require('Images/favicons/favicon-32px.png') type='image/png' sizes='32x32')
+    link(rel='icon' href=require('Images/favicons/favicon-64px.png') type='image/png' sizes='64x64')
+    link(rel='icon' href=require('Images/favicons/favicon-120px-plus.png') type='image/png' sizes='120x120')
+
+    //-link(rel='icon' href=require('@Views3') type='image/png' sizes='120x120')
+
+    //- IE <= 10 only
+    //-link(rel='shortcut icon' href=require('Images/favicons/favicon.ico') type='image/x-icon')
+
+    //- Preload fonts
+    //-link(rel='preload' href=require('Fonts/<YOUR-FONT>.woff2') as='font' type='font/woff2' crossorigin)
+
+    //- Page title
+    title= title
+
+    //- Page specific styles
+    block style
+
+    //- Additional head block to add here page specifically assets
+    block head
+
+  //- Body for usage with switching between themes
+  //-body(data-color-mode=colorScheme data-light-theme='light' data-dark-theme='dark')
+  body
+    //- Body content
+    block body
+
+    //- Page specific scripts
+    block script

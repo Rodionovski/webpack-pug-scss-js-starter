@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://./src/views/pages/home/styles.scss"],"names":[],"mappings":"AAAA,GACE,WAAA,CAGF,UACE,WAAA","sourcesContent":["h1 {\n  color: coral;\n}\n\n.pug-logo {\n  width: 200px;\n}\n"],"sourceRoot":""}

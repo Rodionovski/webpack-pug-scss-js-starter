@@ -1,0 +1,28 @@
+- var uiTabIndex = 0;
+- var uiTabHeadIndex = 0;
+
+mixin tab
+  - uiTabHeadIndex = 0
+  .ui-tab&attributes(attributes)
+    block
+  - uiTabIndex++
+
+mixin tab-head
+  -
+    const id = `tab-${uiTabIndex}-${uiTabHeadIndex++}`
+    const name = `tab-${uiTabIndex}`
+    className = attributes.class
+    checked = attributes.checked
+    attributes.checked = null
+
+  input(id=id name=name type="radio" checked=checked).ui-tab-control
+  label(for=id).ui-tab-label&attributes(attributes)
+    block
+
+mixin tab-body
+  .ui-tab-body&attributes(attributes)
+    block
+
+mixin tab-content
+  .ui-tab-content&attributes(attributes)
+    block
