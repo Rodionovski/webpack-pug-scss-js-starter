@@ -14,7 +14,7 @@ module.exports = (env, argv) => {
 
     output: {
       path: path.join(__dirname, 'dist'),
-      publicPath: '/',
+      publicPath: 'auto',
       // output filename of scripts
       filename: 'assets/js/[name].[contenthash:8].js',
       chunkFilename: 'assets/js/[id].[contenthash:8].js',
@@ -63,13 +63,11 @@ module.exports = (env, argv) => {
       new PugPlugin({
         verbose: !isProd, // output information about the process to console
         pretty: !isProd, // output formatted HTML
-        modules: [
-          // module extracts CSS from style source files required directly in Pug
-          PugPlugin.extractCss({
-            // output filename of styles
-            filename: 'assets/css/[name].[contenthash:8].css',
-          }),
-        ],
+        // extract CSS from style source files specified directly in Pug
+        extractCss: {
+          // output filename of styles
+          filename: 'assets/css/[name].[contenthash:8].css',
+        },
       }),
     ],
 
@@ -77,7 +75,6 @@ module.exports = (env, argv) => {
       rules: [
         // pug
         loaders.pugLoader({
-          method: 'render',
           // enable filters only those used in pug
           embedFilters: {
             // :escape
