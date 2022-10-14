@@ -18,7 +18,6 @@ module.exports = {
         test: /.pug$/,
         loader: PugPlugin.loader,
         options: {
-          method: 'render',
           // enable embedded filters
           embedFilters: {
             // enable :markdown filter

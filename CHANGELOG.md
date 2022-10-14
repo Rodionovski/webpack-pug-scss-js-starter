@@ -1,5 +1,8 @@
 # Change log
 
+## 0.1.2 (2022-10-14)
+- chore: update packages
+
 ## 0.1.1 (2022-08-13)
 - chore: update pug plugin and other packages
 

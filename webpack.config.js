@@ -141,7 +141,6 @@ module.exports = (env, argv) => {
 
   if (isDocs) {
     config.output.path = path.join(__dirname, 'docs');
-    config.output.publicPath = '/webpack-starter-pug-scss-js/';
   }
 
   return config;
