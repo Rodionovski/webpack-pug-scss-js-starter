@@ -1,12 +1,12 @@
-extends Views/layouts/default
+extends @views/layouts/default
 
 block variables
   - title = 'Recipes'
 
 block content
-  include Views/mixins/block
-  include Views/mixins/mixin
-  include Views/mixins/code
+  include @views/mixins/block
+  include @views/mixins/mixin
+  include @views/mixins/code
 
   section
     .container
@@ -20,7 +20,7 @@ block content
         Multiple blocks are in Pug not allowed, see the #[a(href="https://github.com/pugjs/pug/issues/1693").link issue].
         But, using the #[code.inline mixin block] we can simulate multiple blocks.
 
-      +code('pug'): include:highlight(pug) Views/mixins/block
+      +code('pug'): include:highlight(pug) @views/mixins/block
 
       p.
         In your mixin you can use many block mixins by a block name, for example:
@@ -66,7 +66,7 @@ block content
 
       p.
         Create the dynamic mixin to simplify usage syntax:
-      +code('pug'): include:highlight(pug) Views/mixins/mixin
+      +code('pug'): include:highlight(pug) @views/mixins/mixin
 
       p Now you can call a mixin by name:
       +code('pug'): :highlight(pug)

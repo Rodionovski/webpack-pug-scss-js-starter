@@ -1,7 +1,7 @@
 Webpack starter project with Pug, Sass/SCSS and VanillaJS. 
-See the [demo site](https://webdiscus.github.io/webpack-starter-pug-scss-js).
+See the [demo site](https://webdiscus.github.io/webpack-pug-scss-js-starter/).
 
-To render Pug templates is used the [pug-plugin](https://github.com/webdiscus/pug-plugin).
+To render Pug templates into HTML is used the [pug-plugin](https://github.com/webdiscus/pug-plugin).
 
 Install:
 ```

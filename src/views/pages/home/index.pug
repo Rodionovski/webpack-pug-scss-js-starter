@@ -1,18 +1,18 @@
-extends Views/layouts/default.pug
+extends @views/layouts/default.pug
 
 block variables
   - title = 'Home'
 
 append style
-  link(rel='stylesheet' href=require('./styles.scss'))
+  link(rel='stylesheet' href='./styles.scss')
 
 append script
-  script(src=require('./main.js'))
+  script(src='./main.js')
 
 block content
   section
     .container.flex-column.center-x
       h1 Hello Pug!
-      img.pug-logo(src=require('Images/pug-logo.svg'))
+      img.pug-logo(src='@images/pug-logo.svg')
       .teaser.
         Simple multi page web app to demonstrate how easy to use Pug with #[a(href="https://github.com/webdiscus/pug-plugin/" class="link") pug-plugin].

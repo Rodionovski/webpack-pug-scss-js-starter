@@ -1,138 +1,186 @@
 const path = require('path');
 const PugPlugin = require('pug-plugin');
 
-const loaders = require('./webpack/loaders');
-const devServer = require('./webpack/devServer');
+// load constants from .env file
+require('dotenv').config();
 
 module.exports = (env, argv) => {
   const isDocs = env.docs === 'true';
-  const isProd = argv.mode === 'production';
+  const isDev = argv.mode === 'development';
 
   const config = {
-    mode: isProd ? 'production' : 'development',
-    devtool: isProd ? 'source-map' : 'inline-source-map',
+    mode: isDev ? 'development' : 'production',
+    devtool: isDev ? 'inline-source-map' : 'source-map',
 
     output: {
-      path: path.join(__dirname, 'dist'),
-      publicPath: 'auto',
-      // output filename of scripts
-      filename: 'assets/js/[name].[contenthash:8].js',
-      chunkFilename: 'assets/js/[id].[contenthash:8].js',
-      clean: true,
+      path: path.join(__dirname, 'dist'), clean: true,
     },
 
     resolve: {
-      // aliases used in sources
       alias: {
-        Root: __dirname,
-        Src: path.join(__dirname, 'src/'),
-        Views: path.join(__dirname, 'src/views/'),
-        Images: path.join(__dirname, 'src/assets/images/'),
-        Fonts: path.join(__dirname, 'src/assets/fonts/'),
-        Styles: path.join(__dirname, 'src/assets/styles/'),
-        Scripts: path.join(__dirname, 'src/assets/scripts/'),
+        // aliases used in sources
+        '@views': path.join(__dirname, 'src/views/'),
+        '@images': path.join(__dirname, 'src/assets/images/'),
+        '@fonts': path.join(__dirname, 'src/assets/fonts/'),
+        '@styles': path.join(__dirname, 'src/assets/styles/'),
+        '@scripts': path.join(__dirname, 'src/assets/scripts/'),
       },
-      // resolve omitted extensions
-      extensions: ['.js', '.ts'],
-    },
-
-    entry: {
-      // !!! ATTENTION !!!
-      //
-      // The pug-plugin enable to use script and style source files directly in Pug, so easy:
-      //
-      //   link(href=require('./styles.scss') rel='stylesheet')
-      //   script(src=require('./main.js'))
-      //
-      // Don't define styles and js files in entry. You can require source files of js and scss directly in Pug.
-      // Don't use `html-webpack-plugin` to render Pug files in HTML. Pug plugin do it directly from here and much faster.
-      // Don't use `mini-css-extract-plugin` to extract CSS from styles. Pug plugin extract CSS from style sources required in Pug.
-
-      // Please, see more details under https://github.com/webdiscus/pug-plugin
-
-      // Define Pug files directly in entry:
-      404: 'src/views/pages/404.pug',
-      index: 'src/views/pages/home/index.pug',
-      icons: 'src/views/pages/icons/index.pug',
-      markdown: 'src/views/pages/markdown/index.pug',
-      recipes: 'src/views/pages/recipes/index.pug',
     },
 
     plugins: [
-      // enable processing of Pug files from entry
       new PugPlugin({
-        verbose: !isProd, // output information about the process to console
-        pretty: !isProd, // output formatted HTML
-        // extract CSS from style source files specified directly in Pug
-        extractCss: {
-          // output filename of styles
-          filename: 'assets/css/[name].[contenthash:8].css',
+        // automatically processing templates in the path
+        entry: 'src/views/pages/',
+        // modify output filename of generated html as you want
+        filename: ({ chunk }) => {
+          let [name] = chunk.name.split('/');
+          if (name === 'home') name = 'index';
+          return `${name}.html`;
         },
+
+        // - OR - define pages manually (then disable the `filename` option)
+        // entry: {
+        //   404: 'src/views/pages/404.pug', // => dist/404.html
+        //   index: 'src/views/pages/home/index.pug', // => dist/index.html
+        //   icons: 'src/views/pages/icons/index.pug', // => dist/icons.html
+        //   markdown: 'src/views/pages/markdown/index.pug', // => dist/markdown.html
+        //   recipes: 'src/views/pages/recipes/index.pug', // => dist/recipes.html
+        // },
+
+        js: {
+          // JS output filename, used if `inline` option is false (defaults)
+          filename: 'js/[name].[contenthash:8].js',
+          //inline: true, // inlines JS into HTML
+        },
+        css: {
+          // CSS output filename, used if `inline` option is false (defaults)
+          filename: 'css/[name].[contenthash:8].css',
+          //inline: true, // inlines CSS into HTML
+        },
+
+        preprocessorOptions: {
+          // enable build-in filters only those used in templates
+          embedFilters: {
+            // enable the `:escape` filter
+            escape: true,
+            // enable the `:code` filter
+            code: {
+              className: 'language-',
+            },
+            // enable `:highlight` filter
+            highlight: {
+              use: 'prismjs', // use the `prismjs` module as highlighter, must be installed
+              verbose: isDev,
+            },
+            // enable `:markdown` filter
+            markdown: {
+              highlight: {
+                use: 'prismjs', // use the `prismjs` module as highlighter, must be installed
+                verbose: isDev,
+              },
+            },
+          },
+        },
+        //verbose: 'auto', // output process information to console
       }),
     ],
 
     module: {
       rules: [
-        // pug
-        loaders.pugLoader({
-          // enable filters only those used in pug
-          embedFilters: {
-            // :escape
-            escape: true,
-            // :code
-            code: {
-              className: 'language-',
-            },
-            // :highlight
-            highlight: {
-              verbose: !isProd,
-              use: 'prismjs', // name of highlighting npm package, must be installed
-            },
-            // :markdown
-            markdown: {
-              highlight: {
-                verbose: !isProd,
-                use: 'prismjs', // name of highlighting npm package, must be installed
-              },
-            },
-          },
-        }),
-
         // styles
-        loaders.sassLoader(),
+        {
+          test: /\.(css|sass|scss)$/, use: ['css-loader', 'sass-loader'],
+        },
 
         // images
-        loaders.imageLoader(),
-
-        // inline images by size (to force inline use the `?inline` query)
-        ...loaders.inlineImageLoader(2 * 1024),
+        {
+          test: /\.(png|jpe?g|svg|webp|ico)$/i,
+          oneOf: [
+            // inline image using `?inline` query
+            {
+              resourceQuery: /inline/, type: 'asset/inline',
+            },
+            // auto inline by image size
+            {
+              type: 'asset', parser: {
+                dataUrlCondition: {
+                  maxSize: 2048,
+                },
+              },
+              generator: {
+                filename: 'img/[name].[hash:8][ext]',
+              },
+            },
+          ],
+        },
 
         // fonts
-        loaders.fontLoader(
-          // generates filename including last directory name to group fonts by name
-          (pathData) => `assets/fonts/${path.basename(path.dirname(pathData.filename))}/[name][ext][query]`
-        ),
+        {
+          test: /\.(woff(2)?|ttf|otf|eot|svg)$/,
+          type: 'asset/resource',
+          include: /assets\/fonts|node_modules/, // fonts from `assets/fonts` or `node_modules` directory only
+          generator: {
+            // generates filename including last directory name to group fonts by name
+            filename: (pathData) => `fonts/${path.basename(
+              path.dirname(pathData.filename))}/[name][ext][query]`,
+          },
+        },
       ],
     },
 
     performance: {
-      hints: isProd ? 'error' : 'warning',
+      hints: isDev ? 'warning' : 'error',
       // in development mode the size of entrypoint and assets is bigger than in production
-      maxEntrypointSize: (isProd ? 3000 : 15000) * 1024,
-      maxAssetSize: (isProd ? 3000 : 4000) * 1024,
+      maxEntrypointSize: (isDev ? 15000 : 5000) * 1024,
+      maxAssetSize: (isDev ? 10000 : 5000) * 1024,
     },
 
     stats: {
-      colors: true,
-      // see https://webpack.js.org/configuration/stats/#stats-presets
-      preset: isProd ? 'errors-only' : 'minimal',
-      // enable @debug output
-      loggingDebug: isProd ? [] : ['sass-loader'],
+      colors: true, // see https://webpack.js.org/configuration/stats/#stats-presets
+      preset: isDev ? 'minimal' : 'errors-only', // enable @debug output
+      loggingDebug: isDev ? ['sass-loader'] : [],
     },
   };
 
-  if (!isProd) {
-    config.devServer = devServer;
+  if (isDev) {
+    config.devServer = {
+      static: path.join(process.cwd(), './dist'),
+      watchFiles: {
+        paths: ['src/**/*.*', 'README.md'],
+        options: {
+          usePolling: true,
+        },
+      },
+
+      open: true,
+      compress: true,
+
+      // usage https with own certificates
+      // define the APP_SSL_KEY and APP_SSL_CERT in .env file
+      // https: {
+      //   key: fs.readFileSync(process.env.APP_SSL_KEY),
+      //   cert: fs.readFileSync(process.env.APP_SSL_CERT),
+      // },
+
+      // enable CORS
+      // headers: {
+      //   'Access-Control-Allow-Origin': '*',
+      //   'Cross-Origin-Opener-Policy': 'same-origin',
+      //   'Cross-Origin-Embedder-Policy': 'require-corp',
+      // },
+
+      // required for react router
+      //historyApiFallback: true,
+
+      // rewrite rules
+      historyApiFallback: {
+        rewrites: [
+          { from: /^\/$/, to: '/index.html' },
+          { from: /./, to: '/404.html' },
+        ],
+      },
+    };
+
     config.watchOptions = {
       //aggregateTimeout: 1000,
       ignored: ['**/node_modules'],
@@ -140,6 +188,7 @@ module.exports = (env, argv) => {
   }
 
   if (isDocs) {
+    // generate docs for github.io
     config.output.path = path.join(__dirname, 'docs');
   }
 

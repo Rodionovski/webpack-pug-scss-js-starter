@@ -1,0 +1,1 @@
+{"version":3,"file":"js/common.aefcfcca.js","mappings":"AAAAA,QAAQC,IAAI","sources":["webpack://webpack-starter-pug-scss-js/./src/assets/scripts/common.js"],"sourcesContent":["console.log('>> Common script is loaded.');\n"],"names":["console","log"],"sourceRoot":""}

@@ -25,18 +25,10 @@ html(lang='en' dir='ltr')
       meta&attributes(attrs)
 
     //- Favicons, fallback order: svg > png > ico
-    link(rel='icon' href=require('Images/favicons/favicon.svg') type='image/svg+xml' sizes='any')
-    link(rel='icon' href=require('Images/favicons/favicon-32px.png') type='image/png' sizes='32x32')
-    link(rel='icon' href=require('Images/favicons/favicon-64px.png') type='image/png' sizes='64x64')
-    link(rel='icon' href=require('Images/favicons/favicon-120px-plus.png') type='image/png' sizes='120x120')
-
-    //-link(rel='icon' href=require('@Views3') type='image/png' sizes='120x120')
-
-    //- IE <= 10 only
-    //-link(rel='shortcut icon' href=require('Images/favicons/favicon.ico') type='image/x-icon')
-
-    //- Preload fonts
-    //-link(rel='preload' href=require('Fonts/<YOUR-FONT>.woff2') as='font' type='font/woff2' crossorigin)
+    link(rel='icon' href='@images/favicons/favicon.svg' type='image/svg+xml' sizes='any')
+    link(rel='icon' href='@images/favicons/favicon-32px.png' type='image/png' sizes='32x32')
+    link(rel='icon' href='@images/favicons/favicon-64px.png' type='image/png' sizes='64x64')
+    link(rel='icon' href='@images/favicons/favicon-120px-plus.png' type='image/png' sizes='120x120')
 
     //- Page title
     title= title

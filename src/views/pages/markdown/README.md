@@ -2,37 +2,33 @@ The content is rendered from markdown file using the [:markdown](https://github.
 
 The `:markdown` filter transform markdown to HTML and highlights code syntax.
 
-This filter requires the [markdown-it](https://github.com/markdown-it/markdown-it) and [prismjs](https://prismjs.com) modules:
+This filter requires the additional [markdown-it](https://github.com/markdown-it/markdown-it), [prismjs](https://prismjs.com) and **parse5** modules:
 ```
-npm install -D markdown-it prismjs
+npm install -D markdown-it prismjs parse5
 ```
 
-Enable the filter for the Pug rule in _webpack config_:
+Enable the `:markdown` filter in the Pug Plugin:
 ```js
 const PugPlugin = require('pug-plugin');
 
 module.exports = {
-  module: {
-    rules: [
-      {
-        test: /.pug$/,
-        loader: PugPlugin.loader,
-        options: {
-          // enable embedded filters
-          embedFilters: {
-            // enable :markdown filter
-            markdown: {
-              // enable highlighting in markdown
-              highlight: {
-                verbose: true,
-                use: 'prismjs',
-              },
-            },
+  plugins: [
+    new PugPlugin({
+      entry: {
+        // the Pug tempalte containing a markdown
+        index: 'src/views/markdown.pug', // => dist/index.html
+      },
+      // pug preprocessor options
+      preprocessorOptions: {
+        // enable build-in filter `:markdown`
+        markdown: {
+          highlight: {
+            use: 'prismjs', // use the `prismjs` module as highlighter, must be installed
           },
         },
       },
-    ],
-  },
+    }),
+  ],
 };
 ```
 
@@ -40,8 +36,8 @@ The `highlight` options
 
 | Option    |  Type   | Description                                                                                                                           |
 |-----------|:-------:|---------------------------------------------------------------------------------------------------------------------------------------|
-| `verbose` | boolean | Enable output process info in console. Use it in development mode only. Defaults is false.                                            |
 | `use`     | string  | The name of a highlighting npm module. The module must be installed. Currently, is supported the [prismjs](https://prismjs.com) only. |
+| `verbose` | boolean | Enable output process info in console. Use it in development mode only. Defaults is false.                                            |
 
 
 ## Usage of markdown as plain text

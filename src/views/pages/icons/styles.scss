@@ -1,5 +1,5 @@
 // UI component
-@use 'Views/components/tabs' with (
+@use '@views/components/tabs' with (
   $max-tabs: 8
 );
 

@@ -1,5 +1,8 @@
 # Change log
 
+## 1.0.0 (2024-03-17)
+- chore: upgrade the pug-plugin to v5 and refactor code
+
 ## 0.1.2 (2022-10-14)
 - chore: update packages
 

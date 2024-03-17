@@ -1,10 +1,10 @@
-extends Views/layouts/default
+extends @views/layouts/default
 
 block variables
   - title = 'Markdown'
 
 append style
-  link(rel='stylesheet' href=require('./styles.scss'))
+  link(rel='stylesheet' href='./styles.scss')
 
 block content
   section

@@ -1,4 +1,4 @@
-extends Views/layouts/default
+extends @views/layouts/default
 
 mixin icon-list(icons, iconClass)
   each code, name in icons
@@ -10,14 +10,14 @@ block variables
   - title = 'Icons'
 
 append style
-  link(rel='stylesheet' href=require('./styles.scss'))
+  link(rel='stylesheet' href='./styles.scss')
 
 append script
-  script(src=require('./main.js'))
+  script(src='./main.js')
 
 block content
-  include Views/mixins/code
-  include Views/components/tabs/mixins
+  include @views/mixins/code
+  include @views/components/tabs/mixins
 
   section
     .container
