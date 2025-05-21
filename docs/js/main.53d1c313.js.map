@@ -1,1 +1,0 @@
-{"version":3,"file":"js/main.53d1c313.js","mappings":"AAAAA,QAAQC,IAAI","sources":["webpack://webpack-starter-pug-scss-js/./src/views/pages/home/main.js"],"sourcesContent":["console.log('>> home');\n"],"names":["console","log"],"sourceRoot":""}

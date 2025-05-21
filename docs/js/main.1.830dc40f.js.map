@@ -1,1 +1,0 @@
-{"version":3,"file":"js/main.1.830dc40f.js","mappings":"AAAAA,QAAQC,IAAI","sources":["webpack://webpack-starter-pug-scss-js/./src/views/pages/icons/main.js"],"sourcesContent":["console.log('\\n>> Icons');\n"],"names":["console","log"],"sourceRoot":""}

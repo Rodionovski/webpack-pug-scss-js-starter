@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/contacts.scss')
+
+    form(action="/submit" method="POST")
+      div
+        input(type="text" name="name" required)
+        label(for="name") Name
+      div
+        input(type="email" name="email" required)
+        label(for="email") Email
+      div
+        textarea(name="comment" required)
+      div
+        button(type="submit") Submit
